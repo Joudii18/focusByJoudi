@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background-image: url("images/theBackGround.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            color: white;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 40px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .author {
+            font-size: 14px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+
+        }
+
+        .session-input-container {
+            margin-bottom: 30px;
+        }
+
+        .session-input {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: 18px;
+            color: white;
+            text-align: center;
+            outline: none;
+            backdrop-filter: blur(10px);
+            width: 400px;
+            max-width: 90vw;
+        }
+
+        .session-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .mode-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .mode-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .mode-btn.active {
+            background: rgba(138, 43, 226, 0.8);
+            border-color: rgba(138, 43, 226, 1);
+        }
+
+        .time-presets {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .preset-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .preset-option:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .preset-option.selected {
+            background: rgba(138, 43, 226, 0.8);
+            border-color: rgba(138, 43, 226, 1);
+        }
+
+        .preset-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .preset-label {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .timer-display {
+            font-size: 170px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: 500;
+            letter-spacing: 5px;
+            margin-bottom: 50px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 15px;
+        }
+
+        .timer-display:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .timer-display.editing {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+
+        .timer-hint {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-top: -35px;
+            margin-bottom: 25px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+        }
+
+        .control-btn {
+            background: rgba(138, 43, 226, 0.8);
+            border: none;
+            border-radius: 50px;
+            padding: 18px 40px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+
+        .control-btn:hover {
+            background: rgba(138, 43, 226, 1);
+            transform: scale(1.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .control-btn.secondary {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .control-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .timer-display {
+                font-size: 80px;
+            }
+
+            .logo {
+                font-size: 36px;
+            }
+
+            .controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .control-btn {
+                width: 100%;
+            }
+
+            .time-presets {
+                max-width: 90vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="header">
+            <div class="logo">focus</div>
+            <div class="author">By Joudi</div>
+        </div>
+
+        <div class="main-container">
+            <div class="session-input-container">
+                <input type="text" class="session-input" id="sessionName" placeholder="Name your focus session...">
+            </div>
+
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="focus">Focus</button>
+                <button class="mode-btn" data-mode="short-break">Short Break</button>
+                <button class="mode-btn" data-mode="long-break">Long Break</button>
+            </div>
+
+            <div class="time-presets" id="timePresets">
+                <div class="preset-option" data-minutes="15">
+                    <input type="checkbox" class="preset-checkbox" id="preset15">
+                    <label class="preset-label" for="preset15">15 min</label>
+                </div>
+                <div class="preset-option" data-minutes="25">
+                    <input type="checkbox" class="preset-checkbox" id="preset25">
+                    <label class="preset-label" for="preset25">25 min</label>
+                </div>
+                <div class="preset-option" data-minutes="30">
+                    <input type="checkbox" class="preset-checkbox" id="preset30">
+                    <label class="preset-label" for="preset30">30 min</label>
+                </div>
+                <div class="preset-option" data-minutes="45">
+                    <input type="checkbox" class="preset-checkbox" id="preset45">
+                    <label class="preset-label" for="preset45">45 min</label>
+                </div>
+                <div class="preset-option" data-minutes="60">
+                    <input type="checkbox" class="preset-checkbox" id="preset60">
+                    <label class="preset-label" for="preset60">60 min</label>
+                </div>
+            </div>
+
+            <div class="timer-display" id="timerDisplay" contenteditable="true">25:00</div>
+            <div class="timer-hint">Click the timer to type a custom time</div>
+
+            <div class="controls">
+                <button class="control-btn" id="startBtn">Start</button>
+                <button class="control-btn" id="pauseBtn" style="display: none;">Pause</button>
+                <button class="control-btn secondary" id="resetBtn">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval = null;
+        let totalSeconds = 25 * 60;
+        let remainingSeconds = totalSeconds;
+        let isRunning = false;
+        let currentMode = 'focus';
+        let isEditingTimer = false;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const presetOptions = document.querySelectorAll('.preset-option');
+        const modeBtns = document.querySelectorAll('.mode-btn');
+
+        function updateDisplay() {
+            if (!isEditingTimer) {
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // Handle custom time input
+        timerDisplay.addEventListener('focus', () => {
+            if (!isRunning) {
+                isEditingTimer = true;
+                timerDisplay.classList.add('editing');
+                // Select all text for easy editing
+                const range = document.createRange();
+                range.selectNodeContents(timerDisplay);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        });
+
+        timerDisplay.addEventListener('blur', () => {
+            isEditingTimer = false;
+            timerDisplay.classList.remove('editing');
+            parseCustomTime();
+        });
+
+        timerDisplay.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                timerDisplay.blur();
+            }
+            // Only allow numbers, colon, and control keys
+            if (!/[\d:]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                e.preventDefault();
+            }
+        });
+
+        timerDisplay.addEventListener('input', () => {
+            // Limit input length
+            if (timerDisplay.textContent.length > 5) {
+                timerDisplay.textContent = timerDisplay.textContent.substring(0, 5);
+                // Move cursor to end
+                const range = document.createRange();
+                const selection = window.getSelection();
+                range.selectNodeContents(timerDisplay);
+                range.collapse(false);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        });
+
+        function parseCustomTime() {
+            const input = timerDisplay.textContent.trim();
+            const parts = input.split(':');
+            
+            let minutes = 0;
+            let seconds = 0;
+
+            if (parts.length === 2) {
+                minutes = parseInt(parts[0]) || 0;
+                seconds = parseInt(parts[1]) || 0;
+            } else if (parts.length === 1) {
+                minutes = parseInt(parts[0]) || 0;
+            }
+
+            // Validate and cap the values
+            minutes = Math.max(0, Math.min(999, minutes));
+            seconds = Math.max(0, Math.min(59, seconds));
+
+            totalSeconds = (minutes * 60) + seconds;
+            remainingSeconds = totalSeconds;
+
+            // Update display with formatted time
+            updateDisplay();
+
+            // Clear preset selections
+            presetOptions.forEach(opt => {
+                opt.querySelector('.preset-checkbox').checked = false;
+                opt.classList.remove('selected');
+            });
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            
+            // Prevent editing while running
+            timerDisplay.contentEditable = 'false';
+            timerDisplay.style.cursor = 'default';
+            
+            isRunning = true;
+            startBtn.style.display = 'none';
+            pauseBtn.style.display = 'inline-block';
+
+            timerInterval = setInterval(() => {
+                if (remainingSeconds > 0) {
+                    remainingSeconds--;
+                    updateDisplay();
+                } else {
+                    stopTimer();
+                    playSound();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+            startBtn.style.display = 'inline-block';
+            pauseBtn.style.display = 'none';
+            
+            // Re-enable editing
+            timerDisplay.contentEditable = 'true';
+            timerDisplay.style.cursor = 'pointer';
+        }
+
+        function stopTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+            startBtn.style.display = 'inline-block';
+            pauseBtn.style.display = 'none';
+            
+            // Re-enable editing
+            timerDisplay.contentEditable = 'true';
+            timerDisplay.style.cursor = 'pointer';
+        }
+
+        function resetTimer() {
+            stopTimer();
+            remainingSeconds = totalSeconds;
+            updateDisplay();
+        }
+
+        function playSound() {
+            // Audio notification when timer completes
+            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBi+D0fPTgjMGHm7A7+OZUQ0PVqzn7K1aHQs9mNr0zHksB');
+            audio.play().catch(() => {});
+        }
+
+        // Preset selection
+        presetOptions.forEach(option => {
+            const checkbox = option.querySelector('.preset-checkbox');
+            
+            option.addEventListener('click', (e) => {
+                if (e.target !== checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                }
+                
+                // Uncheck other presets
+                presetOptions.forEach(opt => {
+                    if (opt !== option) {
+                        opt.querySelector('.preset-checkbox').checked = false;
+                        opt.classList.remove('selected');
+                    }
+                });
+
+                if (checkbox.checked) {
+                    option.classList.add('selected');
+                    const minutes = parseInt(option.dataset.minutes);
+                    totalSeconds = minutes * 60;
+                    remainingSeconds = totalSeconds;
+                    updateDisplay();
+                    resetTimer();
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+        });
+
+        // Mode selection
+        modeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMode = btn.dataset.mode;
+                
+                // Reset timer when changing modes
+                resetTimer();
+                
+                // Clear preset selections
+                presetOptions.forEach(opt => {
+                    opt.querySelector('.preset-checkbox').checked = false;
+                    opt.classList.remove('selected');
+                });
+                
+                // Set default times based on mode
+                if (currentMode === 'focus') {
+                    totalSeconds = 25 * 60;
+                } else if (currentMode === 'short-break') {
+                    totalSeconds = 5 * 60;
+                } else {
+                    totalSeconds = 15 * 60;
+                }
+                
+                remainingSeconds = totalSeconds;
+                updateDisplay();
+            });
+        });
+
+        // Control buttons
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (isRunning) {
+                    pauseTimer();
+                } else {
+                    startTimer();
+                }
+            } else if (e.code === 'Escape') {
+                resetTimer();
+            }
+        });
+
+        // Initialize
+        updateDisplay();
+    </script>
+</body>
+</html>
