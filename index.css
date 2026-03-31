@@ -8,7 +8,7 @@ body {
     font-family: 'Inter', sans-serif;
     height: 100vh;
     overflow: hidden;
-    background-image: url("theBackGround.jpg"); 
+    background-image: url("theBackGround.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -153,9 +153,9 @@ body {
 }
 
 .timer-display {
-    font-size: 140px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 130px;
     font-weight: 300;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     letter-spacing: 5px;
     margin-bottom: 50px;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -398,5 +398,179 @@ body {
     .youtube-player {
         width: 300px;
         height: 169px;
+    }
+}
+
+/* iPad Mini (768px x 1024px) */
+@media only screen 
+  and (min-width: 768px) 
+  and (max-width: 834px) 
+  and (orientation: portrait) {
+    .logo {
+        font-size: 56px;
+    }
+
+    .author {
+        font-size: 16px;
+    }
+
+    .session-input {
+        width: 500px;
+        font-size: 20px;
+        padding: 14px 28px;
+    }
+
+    .mode-btn {
+        font-size: 18px;
+        padding: 14px 35px;
+    }
+
+    .preset-option {
+        padding: 12px 24px;
+    }
+
+    .preset-label {
+        font-size: 18px;
+    }
+
+    .timer-display {
+        font-size: 140px;
+    }
+
+    .timer-hint {
+        font-size: 16px;
+        margin-bottom: 40px;
+    }
+
+    .control-btn {
+        font-size: 20px;
+        padding: 20px 50px;
+    }
+
+    .youtube-player-container {
+        bottom: 140px;
+        left: 50px;
+    }
+
+    .youtube-player {
+        width: 450px;
+        height: 253px;
+    }
+
+    .youtube-toggle {
+        bottom: 50px;
+        right: 50px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .youtube-toggle svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* iPad Mini Landscape */
+@media only screen 
+  and (min-width: 768px) 
+  and (max-width: 1024px) 
+  and (orientation: landscape) {
+    .timer-display {
+        font-size: 120px;
+    }
+
+    .youtube-player {
+        width: 400px;
+        height: 225px;
+    }
+}
+
+/* iPad Air (820px x 1180px) */
+@media only screen 
+  and (min-width: 820px) 
+  and (max-width: 1024px) 
+  and (orientation: portrait) {
+    .logo {
+        font-size: 60px;
+    }
+
+    .author {
+        font-size: 18px;
+    }
+
+    .session-input {
+        width: 550px;
+        font-size: 22px;
+        padding: 16px 32px;
+    }
+
+    .mode-btn {
+        font-size: 20px;
+        padding: 16px 40px;
+    }
+
+    .preset-option {
+        padding: 14px 28px;
+    }
+
+    .preset-label {
+        font-size: 20px;
+    }
+
+    .timer-display {
+        font-size: 160px;
+        margin-bottom: 60px;
+    }
+
+    .timer-hint {
+        font-size: 18px;
+        margin-bottom: 50px;
+    }
+
+    .control-btn {
+        font-size: 22px;
+        padding: 22px 60px;
+    }
+
+    .youtube-player-container {
+        bottom: 150px;
+        left: 60px;
+    }
+
+    .youtube-player {
+        width: 500px;
+        height: 281px;
+    }
+
+    .youtube-toggle {
+        bottom: 60px;
+        right: 60px;
+        width: 75px;
+        height: 75px;
+    }
+
+    .youtube-toggle svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .youtube-search-input {
+        font-size: 15px;
+        padding: 10px 14px;
+    }
+}
+
+/* iPad Air Landscape */
+@media only screen 
+  and (min-width: 1024px) 
+  and (max-width: 1180px) 
+  and (orientation: landscape) {
+    .timer-display {
+        font-size: 140px;
+    }
+
+    .youtube-player {
+        width: 450px;
+        height: 253px;
     }
 }
