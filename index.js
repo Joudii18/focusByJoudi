@@ -326,7 +326,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '225',
         width: '400',
-        videoId: 'Jvgx5HHJ0qw', // Default: Gentle Rain Sounds
+        videoId: '1ZYbU82GVz4', // Default: Gentle Rain Sounds
         playerVars: {
             'autoplay': 0,
             'controls': 1,
