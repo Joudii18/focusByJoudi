@@ -258,6 +258,11 @@ resetBtn.addEventListener('click', resetTimer);
 
 // Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
+    // Don't trigger shortcuts if user is typing in an input field
+    if (e.target.tagName === 'INPUT' || e.target.isContentEditable) {
+        return;
+    }
+    
     if (e.code === 'Space') {
         e.preventDefault();
         if (isRunning) {
