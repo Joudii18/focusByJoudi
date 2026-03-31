@@ -6,12 +6,14 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-image: url("theBackGround.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     color: white;
@@ -60,6 +62,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
+    min-height: calc(100vh - 120px);
+    padding-bottom: 100px;
 }
 
 .session-input-container {
@@ -154,8 +158,8 @@ body {
 
 .timer-display {
     font-size: 130px;
-    font-weight: 300;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 300;
     letter-spacing: 5px;
     margin-bottom: 50px;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -406,67 +410,99 @@ body {
   and (min-width: 768px) 
   and (max-width: 834px) 
   and (orientation: portrait) {
+    body {
+        overflow-y: auto;
+    }
+
+    .main-container {
+        padding-top: 10px;
+        padding-bottom: 100px;
+        min-height: auto;
+    }
+
+    .header {
+        padding: 25px 40px 15px 40px;
+    }
+
     .logo {
-        font-size: 56px;
+        font-size: 48px;
     }
 
     .author {
-        font-size: 16px;
+        font-size: 15px;
+    }
+
+    .session-input-container {
+        margin-bottom: 20px;
     }
 
     .session-input {
-        width: 500px;
-        font-size: 20px;
-        padding: 14px 28px;
-    }
-
-    .mode-btn {
+        width: 450px;
         font-size: 18px;
-        padding: 14px 35px;
-    }
-
-    .preset-option {
         padding: 12px 24px;
     }
 
+    .mode-selector {
+        margin-bottom: 25px;
+    }
+
+    .mode-btn {
+        font-size: 16px;
+        padding: 12px 30px;
+    }
+
+    .time-presets {
+        margin-bottom: 25px;
+    }
+
+    .preset-option {
+        padding: 10px 20px;
+    }
+
     .preset-label {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .timer-display {
-        font-size: 140px;
+        font-size: 110px;
+        margin-bottom: 35px;
     }
 
     .timer-hint {
-        font-size: 16px;
-        margin-bottom: 40px;
+        font-size: 14px;
+        margin-top: -25px;
+        margin-bottom: 35px;
+    }
+
+    .controls {
+        gap: 15px;
     }
 
     .control-btn {
-        font-size: 20px;
-        padding: 20px 50px;
+        font-size: 18px;
+        padding: 18px 45px;
     }
 
     .youtube-player-container {
-        bottom: 140px;
+        bottom: 120px;
         left: 50px;
     }
 
     .youtube-player {
-        width: 450px;
-        height: 253px;
+        width: 400px;
+        height: 225px;
     }
 
     .youtube-toggle {
-        bottom: 50px;
+        bottom: 45px;
         right: 50px;
-        width: 70px;
-        height: 70px;
+        width: 65px;
+        height: 65px;
     }
 
     .youtube-toggle svg {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
     }
 }
 
@@ -490,46 +526,77 @@ body {
   and (min-width: 820px) 
   and (max-width: 1024px) 
   and (orientation: portrait) {
+    body {
+        overflow-y: auto;
+    }
+
+    .main-container {
+        padding-top: 10px;
+        padding-bottom: 120px;
+        min-height: auto;
+    }
+
+    .header {
+        padding: 30px 40px 20px 40px;
+    }
+
     .logo {
-        font-size: 60px;
+        font-size: 52px;
     }
 
     .author {
-        font-size: 18px;
+        font-size: 16px;
+    }
+
+    .session-input-container {
+        margin-bottom: 25px;
     }
 
     .session-input {
-        width: 550px;
-        font-size: 22px;
-        padding: 16px 32px;
-    }
-
-    .mode-btn {
+        width: 500px;
         font-size: 20px;
-        padding: 16px 40px;
-    }
-
-    .preset-option {
         padding: 14px 28px;
     }
 
+    .mode-selector {
+        margin-bottom: 30px;
+    }
+
+    .mode-btn {
+        font-size: 18px;
+        padding: 14px 35px;
+    }
+
+    .time-presets {
+        margin-bottom: 30px;
+    }
+
+    .preset-option {
+        padding: 12px 22px;
+    }
+
     .preset-label {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .timer-display {
-        font-size: 160px;
-        margin-bottom: 60px;
+        font-size: 130px;
+        margin-bottom: 40px;
     }
 
     .timer-hint {
-        font-size: 18px;
-        margin-bottom: 50px;
+        font-size: 16px;
+        margin-top: -30px;
+        margin-bottom: 40px;
+    }
+
+    .controls {
+        gap: 15px;
     }
 
     .control-btn {
-        font-size: 22px;
-        padding: 22px 60px;
+        font-size: 20px;
+        padding: 20px 50px;
     }
 
     .youtube-player-container {
@@ -538,20 +605,20 @@ body {
     }
 
     .youtube-player {
-        width: 500px;
-        height: 281px;
+        width: 450px;
+        height: 253px;
     }
 
     .youtube-toggle {
         bottom: 60px;
         right: 60px;
-        width: 75px;
-        height: 75px;
+        width: 70px;
+        height: 70px;
     }
 
     .youtube-toggle svg {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
     }
 
     .youtube-search-input {
