@@ -1,0 +1,402 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url("theBackGround.jpg"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    padding: 40px;
+}
+
+.logo {
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.author {
+    font-size: 14px;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.session-input-container {
+    margin-bottom: 30px;
+}
+
+.session-input {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+    outline: none;
+    backdrop-filter: blur(10px);
+    width: 400px;
+    max-width: 90vw;
+}
+
+.session-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.mode-selector {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.mode-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.mode-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.mode-btn.active {
+    background: rgba(138, 43, 226, 0.8);
+    border-color: rgba(138, 43, 226, 1);
+}
+
+.time-presets {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.preset-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.preset-option:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.preset-option.selected {
+    background: rgba(138, 43, 226, 0.8);
+    border-color: rgba(138, 43, 226, 1);
+}
+
+.preset-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.preset-label {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.timer-display {
+    font-size: 140px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 300;
+    letter-spacing: 5px;
+    margin-bottom: 50px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+    border-radius: 15px;
+}
+
+.timer-display:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.timer-display.editing {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    outline: none;
+}
+
+.timer-hint {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-top: -35px;
+    margin-bottom: 35px;
+}
+
+.controls {
+    display: flex;
+    gap: 20px;
+}
+
+.control-btn {
+    background: rgba(138, 43, 226, 0.8);
+    border: none;
+    border-radius: 50px;
+    padding: 18px 40px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+}
+
+.control-btn:hover {
+    background: rgba(138, 43, 226, 1);
+    transform: scale(1.05);
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: scale(1);
+}
+
+.control-btn.secondary {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.control-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.youtube-toggle {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.youtube-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
+.youtube-toggle.active {
+    background: rgba(138, 43, 226, 0.8);
+    border-color: rgba(138, 43, 226, 1);
+}
+
+.youtube-toggle svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+}
+
+.youtube-player-container {
+    position: fixed;
+    bottom: 120px;
+    left: 40px;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.youtube-player-container.minimized {
+    width: auto;
+}
+
+.youtube-header {
+    background: rgba(138, 43, 226, 0.9);
+    padding: 10px 15px;
+    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.youtube-header-title {
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.youtube-header-title svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
+
+.youtube-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.youtube-control-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.youtube-control-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.youtube-control-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+}
+
+.youtube-content {
+    transition: all 0.3s ease;
+}
+
+.youtube-content.hidden {
+    display: none;
+}
+
+.youtube-search {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.youtube-search-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: white;
+    font-size: 13px;
+    outline: none;
+}
+
+.youtube-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.youtube-player {
+    width: 400px;
+    height: 225px;
+}
+
+@media (max-width: 768px) {
+    .timer-display {
+        font-size: 80px;
+    }
+
+    .logo {
+        font-size: 36px;
+    }
+
+    .controls {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .control-btn {
+        width: 100%;
+    }
+
+    .time-presets {
+        max-width: 90vw;
+    }
+
+    .youtube-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .youtube-toggle svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .youtube-player-container {
+        bottom: 80px;
+        left: 20px;
+    }
+
+    .youtube-player {
+        width: 300px;
+        height: 169px;
+    }
+}
